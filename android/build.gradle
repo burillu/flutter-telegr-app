@@ -1,3 +1,4 @@
+
 allprojects {
     repositories {
         google()
@@ -16,3 +17,7 @@ subprojects {
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
+
+// dependencies{
+//     implementation(platform("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10"))
+// }
