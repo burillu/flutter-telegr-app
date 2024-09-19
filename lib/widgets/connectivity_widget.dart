@@ -32,8 +32,8 @@ abstract class ConnectivityWidget extends StatelessWidget {
               Text(
                   AppLocalizations.of(context)?.label_no_connection_msg2 ?? ""),
               ElevatedButton(
-                onPressed: () => AppSettings.openAppSettings(
-                    type: AppSettingsType.dataRoaming),
+                onPressed: () =>
+                    AppSettings.openAppSettings(type: AppSettingsType.settings),
                 child: Text(
                     AppLocalizations.of(context)?.action_open_settings ?? ""),
               )
