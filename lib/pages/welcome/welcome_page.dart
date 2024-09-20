@@ -1,21 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:telegram_app/cubits/welcome_cubit.dart';
 
 class WelcomePage extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: double.maxFinite,
-        padding: EdgeInsets.all(32),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [_sliderContainer(context), _startMessagingButton(context)],
-        ),
-      ),
+  Widget build(_) {
+    return _welcomeCubit(
+      LayoutBuilder(builder: (context, _) {
+        return Scaffold(
+          body: Container(
+            width: double.maxFinite,
+            padding: EdgeInsets.all(32),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _sliderContainer(context),
+                _startMessagingButton(context)
+              ],
+            ),
+          ),
+        );
+      }),
     );
   }
+
+  Widget _welcomeCubit(child) => BlocProvider(
+        create: (_) => WelcomeCubit(),
+        child: child,
+      );
 
   Widget _sliderContainer(BuildContext context) => Expanded(
         child: Column(
@@ -35,6 +49,8 @@ class WelcomePage extends StatelessWidget {
   Widget _slide(BuildContext context) => Container(
         height: 400,
         child: PageView.builder(
+          controller: context.read<WelcomeCubit>().controller,
+          itemCount: _itemContent(context).length,
           itemBuilder: (context, index) => Container(
             child: Column(
               children: [
@@ -70,7 +86,29 @@ class WelcomePage extends StatelessWidget {
           ),
         ),
       );
-  Widget _slideIndicator() => Container();
+  Widget _slideIndicator() =>
+      BlocBuilder<WelcomeCubit, int>(builder: (context, page) {
+        return Container(
+          // width: double.maxFinite,
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              //crossAxisAlignment: CrossAxisAlignment.center,
+              children: List.generate(
+                _itemContent(context).length,
+                (index) => GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                        width: 8,
+                        height: 8,
+                        margin: EdgeInsets.symmetric(horizontal: 4),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color:
+                              index == page ? Colors.black87 : Colors.black38,
+                        ))),
+              )),
+        );
+      });
 
   List _itemContent(BuildContext context) => [
         {
