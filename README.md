@@ -1,6 +1,6 @@
 # telegram_app
 
-A new Flutter project.
+###### Progetto per implementare Firebase e simulare un applicazione di messaggistica istantanea.
 
 ## Getting Started
 

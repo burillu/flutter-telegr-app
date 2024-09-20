@@ -1,6 +1,8 @@
 {
+    "@@locale": "it",
     "app_name": "Telegram",
     "action_open_settings" : "Impostazioni",
     "label_no_connection_msg1" : "Oh no!",
-    "label_no_connection_msg2" : "Nessuna connessione disponibile"
+    "label_no_connection_msg2" : "Nessuna connessione disponibile",
+    "action_start_chatting" : "Inizia una Chat"
 }
