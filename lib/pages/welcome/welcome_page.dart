@@ -34,41 +34,98 @@ class WelcomePage extends StatelessWidget {
 
   Widget _slide(BuildContext context) => Container(
         height: 400,
-        child: Column(
-          children: [
-            Flexible(
-              flex: 1,
-              fit: FlexFit.tight,
-              child: FaIcon(
-                Icons.telegram,
-                size: 128,
-                color: Colors.cyan,
-              ),
-            ),
-            Flexible(
-              flex: 1,
-              fit: FlexFit.tight,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                child: Column(
-                  children: [
-                    Text(
-                      "Telegram",
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Text(
-                      "L' app di Messaggistica piu veloce al mondo e piu sicura!",
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+        child: PageView.builder(
+          itemBuilder: (context, index) => Container(
+            child: Column(
+              children: [
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.tight,
+                  child: _itemContent(context)[index]['icon'],
                 ),
-              ),
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.tight,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          _itemContent(context)[index]['header'],
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          _itemContent(context)[index]['description'],
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       );
   Widget _slideIndicator() => Container();
+
+  List _itemContent(BuildContext context) => [
+        {
+          "icon": FaIcon(
+            FontAwesomeIcons.telegram,
+            size: 128,
+            color: Colors.cyan,
+          ),
+          "header": AppLocalizations.of(context)?.welcome_header1,
+          "description": AppLocalizations.of(context)?.welcome_description1
+        },
+        {
+          "icon": FaIcon(
+            FontAwesomeIcons.rocketchat,
+            size: 128,
+            color: Colors.red,
+          ),
+          "header": AppLocalizations.of(context)?.welcome_header2,
+          "description": AppLocalizations.of(context)?.welcome_description2
+        },
+        {
+          "icon": FaIcon(
+            FontAwesomeIcons.dollarSign,
+            size: 128,
+            color: Colors.green,
+          ),
+          "header": AppLocalizations.of(context)?.welcome_header3,
+          "description": AppLocalizations.of(context)?.welcome_description3
+        },
+        {
+          "icon": FaIcon(
+            FontAwesomeIcons.boltLightning,
+            size: 128,
+            color: Colors.pink,
+          ),
+          "header": AppLocalizations.of(context)?.welcome_header4,
+          "description": AppLocalizations.of(context)?.welcome_description4
+        },
+        {
+          "icon": FaIcon(
+            FontAwesomeIcons.lock,
+            size: 128,
+            color: Colors.orange,
+          ),
+          "header": AppLocalizations.of(context)?.welcome_header5,
+          "description": AppLocalizations.of(context)?.welcome_description5
+        },
+        {
+          "icon": FaIcon(
+            FontAwesomeIcons.cloud,
+            size: 128,
+            color: Colors.grey,
+          ),
+          "header": AppLocalizations.of(context)?.welcome_header6,
+          "description": AppLocalizations.of(context)?.welcome_description6
+        }
+      ];
 }

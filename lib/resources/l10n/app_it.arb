@@ -4,5 +4,17 @@
     "action_open_settings" : "Impostazioni",
     "label_no_connection_msg1" : "Oh no!",
     "label_no_connection_msg2" : "Nessuna connessione disponibile",
-    "action_start_chatting" : "Inizia una Chat"
+    "action_start_chatting" : "Inizia una Chat",
+    "welcome_header1" : "Telegram",
+    "welcome_header2" : "Veloce",
+    "welcome_header3" : "Gratuito",
+    "welcome_header4" : "Potente",
+    "welcome_header5" : "Sicuro",
+    "welcome_header6" : "Basato in Cloud",
+    "welcome_description1" : "Telegram e' l'app di messaggistica piu veloce al mondo e piu sicura!.",
+    "welcome_description2" : "Telegram invia rapidamente i messaggi piu di ogni altra applicazione.",
+    "welcome_description3" : "Telegram e' gratuita, e lo rimarra' per sempre. Nessuna pubblicita'. Nessun costo aggiuntivo.",
+    "welcome_description4" : "Telegram non ha limiti di spazio di archiviazione per i tuoi media e le tue chat.",
+    "welcome_description5" : "Telegram tiene i messaggi al sicuro da eventual attacchi hacker.",
+    "welcome_description6" : "Telegram ti permette di accedere ai tuoi messaggi da multipli dispositivi."
 }
