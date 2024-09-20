@@ -92,7 +92,6 @@ class WelcomePage extends StatelessWidget {
           // width: double.maxFinite,
           child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              //crossAxisAlignment: CrossAxisAlignment.center,
               children: List.generate(
                 _itemContent(context).length,
                 (index) => GestureDetector(
@@ -140,7 +139,7 @@ class WelcomePage extends StatelessWidget {
         },
         {
           "icon": FaIcon(
-            FontAwesomeIcons.boltLightning,
+            FontAwesomeIcons.bolt,
             size: 128,
             color: Colors.pink,
           ),

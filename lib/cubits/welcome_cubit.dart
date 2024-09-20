@@ -12,7 +12,6 @@ class WelcomeCubit extends Cubit<int> {
   @override
   Future<void> close() {
     controller.dispose();
-    // TODO: implement close
     return super.close();
   }
 }

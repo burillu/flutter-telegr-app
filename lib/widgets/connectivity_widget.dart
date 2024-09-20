@@ -4,7 +4,10 @@ import 'package:flutter_offline/flutter_offline.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 abstract class ConnectivityWidget extends StatelessWidget {
+  const ConnectivityWidget({super.key});
+
   // ConnectivityWidget({});
+
   @override
   Widget build(BuildContext context) => OfflineBuilder(
         connectivityBuilder: (context, connectivity, child) =>
