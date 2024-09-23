@@ -1,10 +1,23 @@
 {
     "@@locale": "it",
+
     "app_name": "Telegram",
+
     "action_open_settings" : "Impostazioni",
+    "action_start_chatting" : "Inizia una Chat",
+    "action_login" : "Login",
+    "action_sign_up" : "Accedi",
+    
     "label_no_connection_msg1" : "Oh no!",
     "label_no_connection_msg2" : "Nessuna connessione disponibile",
-    "action_start_chatting" : "Inizia una Chat",
+    "label_email" : "Email",
+    "label_password" : "Password",
+    "label_google_sign_in" : "Accedi con Google",
+    "label_or" :"oppure",
+
+    "title_sign_in": "Accedi",
+    "title_sign_up": "Registrati",
+    
     "welcome_header1" : "Telegram",
     "welcome_header2" : "Veloce",
     "welcome_header3" : "Gratuito",

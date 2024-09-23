@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:telegram_app/cubits/welcome_cubit.dart';
+import 'package:telegram_app/router/app_router.gr.dart';
 
 class WelcomePage extends StatelessWidget {
   @override
@@ -43,7 +45,9 @@ class WelcomePage extends StatelessWidget {
       );
 
   Widget _startMessagingButton(BuildContext context) => ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        context.router.push(SignInRoute());
+      },
       child: Text(AppLocalizations.of(context)?.action_start_chatting ?? ""));
 
   Widget _slide(BuildContext context) => Container(

@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:telegram_app/app.dart';
 import 'package:telegram_app/router/app_router.gr.dart';
 
 // @MaterialAutoRouter(
@@ -17,5 +16,6 @@ class AppRouter extends RootStackRouter {
   List<AutoRoute> get routes => [
         /// routes go here
         AutoRoute(page: MainRoute.page, initial: true),
+        AutoRoute(page: SignInRoute.page, initial: false),
       ];
 }
