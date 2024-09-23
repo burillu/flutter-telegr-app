@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:telegram_app/cubits/auth/auth_cubit.dart';
@@ -5,6 +6,7 @@ import 'package:telegram_app/pages/home_page.dart';
 import 'package:telegram_app/pages/welcome/welcome_page.dart';
 import 'package:telegram_app/widgets/connectivity_widget.dart';
 
+@RoutePage()
 class MainPage extends ConnectivityWidget {
   @override
   Widget connectedBuild(BuildContext context) =>
