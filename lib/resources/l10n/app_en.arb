@@ -7,13 +7,17 @@
     "action_start_chatting" : "Start Chatting",
     "action_login" : "Login",
     "action_sign_up" : "Sign up",
-    
+    "action_ok" :"Ok",
+
     "label_no_connection_msg1" : "Oh no!",
     "label_no_connection_msg2" : "There is no available connection",
     "label_email" : "Email",
     "label_password" : "Password",
     "label_google_sign_in" : "Sign in with Google",
     "label_or" :"or",
+
+    "dialog_wrong_login_title" : "Login Error",
+    "dialog_wrong_login_message" : "The input credentials are not valids",
     
     "title_sign_in": "Sign In",
     "title_sign_up": "Sign Up",

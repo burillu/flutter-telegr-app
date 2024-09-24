@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_essentials_kit/localizations/flutter_essentials_kit_localizations.dart';
 import 'package:telegram_app/cubits/dark_mode_cubit.dart';
 import 'package:telegram_app/di/dependency_injector.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -14,7 +15,10 @@ class App extends StatelessWidget {
             title: "Telegram",
             theme: _theme(context),
             darkTheme: _themeDark(context),
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            localizationsDelegates: [
+              ...AppLocalizations.localizationsDelegates,
+              FlutterEssentialsKitLocalizations.delegate,
+            ],
             supportedLocales: AppLocalizations.supportedLocales,
             themeMode: mode,
             routerConfig: _appRouter.config(),

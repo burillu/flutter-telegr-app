@@ -7,13 +7,17 @@
     "action_start_chatting" : "Inizia una Chat",
     "action_login" : "Login",
     "action_sign_up" : "Accedi",
-    
+    "action_ok" :"Ok",
+
     "label_no_connection_msg1" : "Oh no!",
-    "label_no_connection_msg2" : "Nessuna connessione disponibile",
+    "label_no_connection_msg2" : "There is no available connection",
     "label_email" : "Email",
     "label_password" : "Password",
-    "label_google_sign_in" : "Accedi con Google",
-    "label_or" :"oppure",
+    "label_google_sign_in" : "Sign in with Google",
+    "label_or" :"or",
+
+    "dialog_wrong_login_title" : "Errore di login",
+    "dialog_wrong_login_message" : "Le credenziali inserite non sono corrette",
 
     "title_sign_in": "Accedi",
     "title_sign_up": "Registrati",
