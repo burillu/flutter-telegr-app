@@ -53,7 +53,10 @@ class SignInPage extends ConnectivityWidget implements AutoRouteWrapper {
             ],
           ),
         ),
-        listener: (context, state) {},
+        listener: (context, state) {
+          _shouldCloseForSignedIn(context, state: state);
+          _shouldShowErrorSignInDialog(context, state: state);
+        },
       );
 
   Widget _emailField(BuildContext context, {bool enabled = true}) =>
@@ -100,19 +103,19 @@ class SignInPage extends ConnectivityWidget implements AutoRouteWrapper {
         ),
       );
   Widget _signInButton(BuildContext context, {bool enabled = true}) {
-    Widget _signInButtonEnable(
+    Widget signInButtonEnable(
       BuildContext context, {
       required Widget Function(bool) function,
     }) =>
         StreamBuilder<bool>(
-          initialData: enabled,
+          initialData: false,
           stream: context.watch<SignInBloc>().areValidCredentials,
           builder: (context, snapshot) =>
               function(enabled && snapshot.hasData && snapshot.data!),
         );
-    return _signInButtonEnable(
+    return signInButtonEnable(
       context,
-      function: (enable) => ElevatedButton(
+      function: (enabled) => ElevatedButton(
         onPressed:
             enabled ? () => context.read<SignInBloc>().performSignIn() : null,
         child: Text(AppLocalizations.of(context)?.action_login ?? ""),
@@ -178,7 +181,7 @@ class SignInPage extends ConnectivityWidget implements AutoRouteWrapper {
                       ""),
                   actions: [
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () => context.router.popForced(),
                         child:
                             Text(AppLocalizations.of(context)?.action_ok ?? ""))
                   ],

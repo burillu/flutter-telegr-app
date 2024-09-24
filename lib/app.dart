@@ -33,6 +33,7 @@ class App extends StatelessWidget {
       );
 
   ThemeData _theme(BuildContext context) => ThemeData(
+        useMaterial3: false,
         primaryColor: Colors.lightBlue,
         primaryColorDark: Colors.blue,
         colorScheme:
