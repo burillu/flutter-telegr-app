@@ -1,0 +1,1 @@
+class AccountAlreadyExistException implements Exception {}

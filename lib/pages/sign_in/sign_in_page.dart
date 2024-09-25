@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_essentials_kit/flutter_essentials_kit.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:telegram_app/blocs/sign_in/sign_in_bloc.dart';
+import 'package:telegram_app/router/app_router.gr.dart';
 import 'package:telegram_app/widgets/connectivity_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -129,7 +130,7 @@ class SignInPage extends ConnectivityWidget implements AutoRouteWrapper {
             )
           : Container();
   Widget _signUpButton(BuildContext context) => ElevatedButton(
-      onPressed: () {},
+      onPressed: () => context.router.push(SignUpRoute()),
       child: Text(AppLocalizations.of(context)?.action_sign_up ?? ""));
   Widget _progress(BuildContext context) => Center(
         child: CircularProgressIndicator(),
