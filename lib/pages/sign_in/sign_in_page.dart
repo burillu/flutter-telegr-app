@@ -46,10 +46,7 @@ class SignInPage extends ConnectivityWidget implements AutoRouteWrapper {
               SizedBox(
                 height: 20,
               ),
-              if (state is SigningInState)
-                _progress(
-                  context,
-                ),
+              if (state is SigningInState) _progress(context),
             ],
           ),
         ),
@@ -73,7 +70,7 @@ class SignInPage extends ConnectivityWidget implements AutoRouteWrapper {
           controller: controller,
           enabled: enabled,
           onChanged: onChanged,
-          keyboardType: TextInputType.emailAddress,
+          // keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
             hintText: AppLocalizations.of(context)?.label_email ?? "",
             errorText: error?.localizedString(context),
