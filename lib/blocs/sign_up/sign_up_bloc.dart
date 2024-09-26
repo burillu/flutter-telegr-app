@@ -78,17 +78,17 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           ],
           (_) =>
               firstNameBinding.value != null &&
-              firstNameBinding.value!.isEmpty &&
+              firstNameBinding.value!.isNotEmpty &&
               lastNameBinding.value != null &&
-              lastNameBinding.value!.isEmpty &&
+              lastNameBinding.value!.isNotEmpty &&
               emailBinding.value != null &&
-              emailBinding.value!.isEmpty &&
+              emailBinding.value!.isNotEmpty &&
               confirmEmailBinding.value != null &&
-              confirmEmailBinding.value!.isEmpty &&
+              confirmEmailBinding.value!.isNotEmpty &&
               passwordBinding.value != null &&
-              passwordBinding.value!.isEmpty &&
+              passwordBinding.value!.isNotEmpty &&
               confirmPasswordBinding.value != null &&
-              confirmPasswordBinding.value!.isEmpty);
+              confirmPasswordBinding.value!.isNotEmpty);
   @override
   Future<void> close() async {
     await firstNameBinding.close();
