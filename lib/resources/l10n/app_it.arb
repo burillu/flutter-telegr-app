@@ -5,9 +5,11 @@
 
     "action_open_settings" : "Impostazioni",
     "action_start_chatting" : "Inizia una Chat",
-    "action_login" : "Login",
+    "action_login" : "Accedi",
+    "action_logout" : "Disconnetti",
     "action_sign_up" : "Registrati",
     "action_ok" :"Ok",
+    "action_no": "No",
 
     "label_no_connection_msg1" : "Oh no!",
     "label_no_connection_msg2" : "Non ci sono connessioni disponibili",
@@ -26,6 +28,8 @@
     "dialog_wrong_login_message" : "Le credenziali inserite non sono corrette",
     "dialog_wrong_sign_up_title" : "Errore di Registrazione",
     "dialog_wrong_sign_up_message" : "Le credenziali inserite non sono corrette",
+    "dialog_title_confirm_logout": "Conferma logout",
+    "dialog_confirm_logout_message" : "Sei sicuro di voler disconnettere il tuo account?",
 
     "title_sign_in": "Accedi",
     "title_sign_up": "Registrati",

@@ -6,8 +6,10 @@
     "action_open_settings" : "Open Settings",
     "action_start_chatting" : "Start Chatting",
     "action_login" : "Login",
+    "action_logout" : "Logout",
     "action_sign_up" : "Sign up",
     "action_ok" :"Ok",
+    "action_no": "No",
 
     "label_no_connection_msg1" : "Oh no!",
     "label_no_connection_msg2" : "There is no available connection",
@@ -20,12 +22,14 @@
     "label_google_sign_in" : "Sign in with Google",
     "label_or" :"or",
     "label_user_name": " User Name",
-    
+
 
     "dialog_wrong_login_title" : "Login Error",
     "dialog_wrong_login_message" : "The input credentials are not valids",
     "dialog_wrong_sign_up_title" : "Registration Error",
     "dialog_wrong_sign_up_message" : "The input credentials are not valids",
+    "dialog_title_confirm_logout": "Confirm Logout",
+    "dialog_confirm_logout_message" : "Are you sure you want logout your account?",
     
     "title_sign_in": "Sign In",
     "title_sign_up": "Sign Up",

@@ -33,5 +33,5 @@ class AuthCubit extends Cubit<AuthState> {
     return super.close();
   }
 
-  void _signOut() => firebaseAuth.signOut();
+  void signOut() => firebaseAuth.signOut();
 }
