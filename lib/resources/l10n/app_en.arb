@@ -22,6 +22,8 @@
 
     "dialog_wrong_login_title" : "Login Error",
     "dialog_wrong_login_message" : "The input credentials are not valids",
+    "dialog_wrong_sign_up_title" : "Registration Error",
+    "dialog_wrong_sign_up_message" : "The input credentials are not valids",
     
     "title_sign_in": "Sign In",
     "title_sign_up": "Sign Up",

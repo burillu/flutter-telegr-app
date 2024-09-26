@@ -22,6 +22,8 @@
 
     "dialog_wrong_login_title" : "Errore di login",
     "dialog_wrong_login_message" : "Le credenziali inserite non sono corrette",
+    "dialog_wrong_sign_up_title" : "Errore di Registrazione",
+    "dialog_wrong_sign_up_message" : "Le credenziali inserite non sono corrette",
 
     "title_sign_in": "Accedi",
     "title_sign_up": "Registrati",
