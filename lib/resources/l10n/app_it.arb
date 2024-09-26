@@ -19,6 +19,8 @@
     "label_confirm_password": "Conferma password",
     "label_google_sign_in" : "Sign in with Google",
     "label_or" :"or",
+    "label_user_name": "Nome Utente",
+
 
     "dialog_wrong_login_title" : "Errore di login",
     "dialog_wrong_login_message" : "Le credenziali inserite non sono corrette",

@@ -19,6 +19,8 @@
     "label_confirm_password": "Confirm password",
     "label_google_sign_in" : "Sign in with Google",
     "label_or" :"or",
+    "label_user_name": " User Name",
+    
 
     "dialog_wrong_login_title" : "Login Error",
     "dialog_wrong_login_message" : "The input credentials are not valids",
