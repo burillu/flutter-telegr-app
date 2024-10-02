@@ -49,6 +49,7 @@ dependencies:
   provider: ^6.1.2
   rxdart: ^0.28.0
   shared_preferences: ^2.3.2
+  cloud_firestore: ^5.4.4
 
 dev_dependencies:
   flutter_test:

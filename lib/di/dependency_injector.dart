@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,6 +37,9 @@ class DependencyInjector extends StatelessWidget {
               'https://www.googleapis.com/auth/userinfo.profile',
             ]),
           ),
+          Provider<FirebaseFirestore>(
+            create: (_) => FirebaseFirestore.instance,
+          )
         ],
         child: child,
       );
