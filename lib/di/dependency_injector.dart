@@ -7,8 +7,12 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:telegram_app/cubits/auth/auth_cubit.dart';
 import 'package:telegram_app/cubits/dark_mode_cubit.dart';
+import 'package:telegram_app/misc/mappers/firebase_mapper.dart';
+import 'package:telegram_app/misc/mappers/firebase_user_mapper.dart';
+import 'package:telegram_app/models/user.dart' as model;
 import 'package:telegram_app/providers/shared_preferences_providers.dart';
 import 'package:telegram_app/repositories/authentication_repository.dart';
+import 'package:telegram_app/repositories/user_repository.dart';
 
 class DependencyInjector extends StatelessWidget {
   final Widget child;
@@ -17,7 +21,8 @@ class DependencyInjector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _providers(child: _repositories(child: _blocs(child: child)));
+    return _providers(
+        child: _mappers(child: _repositories(child: _blocs(child: child))));
   }
 
   Widget _providers({required Widget child}) => MultiProvider(
@@ -44,14 +49,22 @@ class DependencyInjector extends StatelessWidget {
         child: child,
       );
   Widget _mappers({required Widget child}) => MultiProvider(
-        providers: [],
+        providers: [
+          Provider<FirebaseUserMapper>(create: (_) => FirebaseUserMapper())
+        ],
         child: child,
       );
   Widget _repositories({required Widget child}) => MultiRepositoryProvider(
         providers: [
           RepositoryProvider(
               create: (context) => AuthenticationRepository(
-                  firebaseAuth: context.read(), googleSignIn: context.read()))
+                  firebaseAuth: context.read(), googleSignIn: context.read())),
+          RepositoryProvider(
+            create: (context) => UserRepository(
+              firebaseFirestore: context.read(),
+              firebaseUserMapper: context.read(),
+            ),
+          ),
         ],
         child: child,
       );

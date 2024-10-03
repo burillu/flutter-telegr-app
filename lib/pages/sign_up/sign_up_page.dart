@@ -13,6 +13,7 @@ class SignUpPage extends ConnectivityWidget implements AutoRouteWrapper {
         create: (context) => SignUpBloc(
           authenticationRepository: context.read(),
           authCubit: context.read(),
+          userRepository: context.read(),
         ),
         child: this,
       );

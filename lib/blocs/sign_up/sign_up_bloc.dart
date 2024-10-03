@@ -6,6 +6,8 @@ import 'package:flutter_essentials_kit/flutter_essentials_kit.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:telegram_app/cubits/auth/auth_cubit.dart';
 import 'package:telegram_app/repositories/authentication_repository.dart';
+import 'package:telegram_app/repositories/user_repository.dart';
+import 'package:telegram_app/models/user.dart' as model;
 
 part 'sign_up_event.dart';
 part 'sign_up_state.dart';
@@ -13,6 +15,7 @@ part 'sign_up_state.dart';
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final AuthenticationRepository authenticationRepository;
   final AuthCubit authCubit;
+  final UserRepository userRepository;
 
   final firstNameBinding = TwoWayBinding<String>().bindDataRule(RequiredRule());
   final lastNameBinding = TwoWayBinding<String>().bindDataRule(RequiredRule());
@@ -26,7 +29,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final confirmPasswordBinding =
       TwoWayBinding<String>().bindDataRule(RequiredRule());
 
-  SignUpBloc({required this.authenticationRepository, required this.authCubit})
+  SignUpBloc(
+      {required this.authenticationRepository,
+      required this.authCubit,
+      required this.userRepository})
       : super(InitialSignUpState()) {
     confirmEmailBinding.bindDataRule2(emailBinding, SameRule());
     confirmPasswordBinding.bindDataRule2(passwordBinding, SameRule());
@@ -63,6 +69,13 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     final firstName = event.firstName;
     final lastName = event.lastName;
     final displayName = "$firstName $lastName";
+
+    await userRepository.create(model.User(
+      id: user.uid,
+      firstName: firstName,
+      lastName: lastName,
+      lastAccess: DateTime.now(),
+    ));
 
     await user.updateDisplayName(displayName);
   }

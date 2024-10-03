@@ -16,6 +16,8 @@ class SignInPage extends ConnectivityWidget implements AutoRouteWrapper {
   Widget wrappedRoute(BuildContext context) => BlocProvider(
         create: (context) => SignInBloc(
           authenticationRepository: context.read(),
+          userRepository: context.read(),
+          authCubit: context.read(),
         ),
         child: this,
       );
