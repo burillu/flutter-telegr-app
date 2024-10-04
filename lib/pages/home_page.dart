@@ -2,8 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:telegram_app/cubits/auth/auth_cubit.dart';
+import 'package:telegram_app/cubits/scroll_cubit.dart';
 import 'package:telegram_app/extension/user_display_name_initials.dart';
+import 'package:telegram_app/widgets/chat_tile.dart';
 import 'package:telegram_app/widgets/connectivity_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -13,13 +16,18 @@ class HomePage extends ConnectivityWidget {
   const HomePage({super.key, required this.user});
 
   @override
-  Widget connectedBuild(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text(AppLocalizations.of(context)?.app_name ?? ""),
-        ),
-        drawer: _drawer(context),
-        body: Center(
-          child: Text("Home page"),
+  Widget connectedBuild(_) => BlocProvider<ScrollCubit>(
+        create: (_) => ScrollCubit(),
+        child: LayoutBuilder(
+          builder: (context, _) {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(AppLocalizations.of(context)?.app_name ?? ""),
+              ),
+              drawer: _drawer(context),
+              body: _body(context),
+            );
+          },
         ),
       );
 
@@ -30,6 +38,7 @@ class HomePage extends ConnectivityWidget {
               child: ListView(
                 children: [
                   _userHeaderDrawer(context),
+                  _newMessageTile(context),
                 ],
               ),
             ),
@@ -38,6 +47,7 @@ class HomePage extends ConnectivityWidget {
           ],
         ),
       );
+
   Widget _userHeaderDrawer(BuildContext context) => UserAccountsDrawerHeader(
       currentAccountPicture: CircleAvatar(
         radius: 30,
@@ -81,8 +91,49 @@ class HomePage extends ConnectivityWidget {
     );
   }
 
+  Widget _newMessageTile(BuildContext context) => ListTile(
+        title: Text(AppLocalizations.of(context)?.action_new_message ?? ""),
+        leading: Icon(FontAwesomeIcons.edit),
+        onTap: () {},
+      );
+
   void _signOut(BuildContext context) {
     context.read<AuthCubit>().signOut();
     context.router.popUntilRoot();
   }
+
+  Widget _body(BuildContext context) => Stack(
+        children: [
+          _chatBody(context),
+          _fab(context),
+        ],
+      );
+
+  Widget _chatBody(BuildContext context) => NotificationListener(
+        child: ListView.builder(
+          itemCount: 7,
+          itemBuilder: (_, index) => ChatTile(),
+        ),
+        onNotification: (notification) {
+          if (notification is ScrollStartNotification) {
+            context.read<ScrollCubit>().start();
+          } else if (notification is ScrollEndNotification) {
+            context.read<ScrollCubit>().end();
+          }
+          return false;
+        },
+      );
+
+  Widget _fab(BuildContext context) =>
+      BlocBuilder<ScrollCubit, bool>(builder: (context, isScrolling) {
+        return AnimatedPositioned(
+            duration: Duration(milliseconds: 250),
+            bottom: isScrolling ? -100 : 24,
+            right: 24,
+            child: FloatingActionButton(
+              shape: CircleBorder(),
+              onPressed: () {},
+              child: Icon(FontAwesomeIcons.edit),
+            ));
+      });
 }

@@ -10,6 +10,8 @@
     "action_sign_up" : "Registrati",
     "action_ok" :"Ok",
     "action_no": "No",
+    "action_new_message" : "Nuovo Messaggio",
+
 
     "label_no_connection_msg1" : "Oh no!",
     "label_no_connection_msg2" : "Non ci sono connessioni disponibili",

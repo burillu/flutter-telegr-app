@@ -10,6 +10,7 @@
     "action_sign_up" : "Sign up",
     "action_ok" :"Ok",
     "action_no": "No",
+    "action_new_message" : "New message",
 
     "label_no_connection_msg1" : "Oh no!",
     "label_no_connection_msg2" : "There is no available connection",
