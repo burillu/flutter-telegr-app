@@ -14,7 +14,7 @@ class Chat extends Model {
       super.createdAt,
       super.updatedAt,
       required this.lastMessage,
-      required this.user});
+      this.user});
 
   @override
   List<Object?> get props => [

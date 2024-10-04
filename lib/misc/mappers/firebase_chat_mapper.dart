@@ -4,7 +4,14 @@ import 'package:telegram_app/models/chat.dart';
 class FirebaseChatMapper extends FirebaseMapper<Chat> {
   @override
   Chat fromFirebase(Map<String, dynamic> map) {
-    throw UnimplementedError();
+    return Chat(
+        lastMessage: map['last_message'],
+        createdAt: map['created_at'] != null
+            ? DateTime.fromMicrosecondsSinceEpoch(map['created_at'])
+            : null,
+        updatedAt: map['updated_at'] != null
+            ? DateTime.fromMicrosecondsSinceEpoch(map['updated_at'])
+            : null);
   }
 
   @override
@@ -12,8 +19,8 @@ class FirebaseChatMapper extends FirebaseMapper<Chat> {
     return {
       "last_message": chat.lastMessage,
       "users": chat.user,
-      "createdAt": chat.createdAt,
-      "updatedAt": chat.updatedAt,
+      "created_at": chat.createdAt,
+      "updated_at": chat.updatedAt,
     };
   }
 }
