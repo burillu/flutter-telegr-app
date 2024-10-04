@@ -1,5 +1,9 @@
 import 'package:telegram_app/models/model.dart';
+import 'package:copy_with_extension/copy_with_extension.dart';
 
+part 'user.g.dart';
+
+@CopyWith()
 class User extends Model {
   final String firstName;
   final String lastName;
@@ -14,7 +18,6 @@ class User extends Model {
       this.lastAccess});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
         ...super.props,
         firstName,

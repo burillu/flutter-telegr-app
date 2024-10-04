@@ -65,7 +65,7 @@ class SignUpRoute extends _i4.PageRouteInfo<void> {
   static _i4.PageInfo page = _i4.PageInfo(
     name,
     builder: (data) {
-      return _i3.SignUpPage();
+      return _i4.WrappedRoute(child: _i3.SignUpPage());
     },
   );
 }
