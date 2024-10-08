@@ -13,7 +13,7 @@ class SignInPage extends ConnectivityWidget implements AutoRouteWrapper {
   const SignInPage({super.key});
 
   @override
-  Widget wrappedRoute(BuildContext context) => BlocProvider(
+  Widget wrappedRoute(_) => BlocProvider<SignInBloc>(
         create: (context) => SignInBloc(
           authenticationRepository: context.read(),
           userRepository: context.read(),
@@ -71,6 +71,7 @@ class SignInPage extends ConnectivityWidget implements AutoRouteWrapper {
         ) =>
             TextField(
           controller: controller,
+          keyboardType: TextInputType.emailAddress,
           enabled: enabled,
           onChanged: onChanged,
           // keyboardType: TextInputType.emailAddress,

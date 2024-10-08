@@ -7,9 +7,14 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:telegram_app/cubits/auth/auth_cubit.dart';
 import 'package:telegram_app/cubits/dark_mode_cubit.dart';
+import 'package:telegram_app/misc/mappers/firebase_chat_mapper.dart';
+import 'package:telegram_app/misc/mappers/firebase_mapper.dart';
 import 'package:telegram_app/misc/mappers/firebase_user_mapper.dart';
+import 'package:telegram_app/models/chat.dart';
+import 'package:telegram_app/models/user.dart' as model;
 import 'package:telegram_app/providers/shared_preferences_providers.dart';
 import 'package:telegram_app/repositories/authentication_repository.dart';
+import 'package:telegram_app/repositories/chat_repository.dart';
 import 'package:telegram_app/repositories/user_repository.dart';
 
 class DependencyInjector extends StatelessWidget {
@@ -48,7 +53,8 @@ class DependencyInjector extends StatelessWidget {
       );
   Widget _mappers({required Widget child}) => MultiProvider(
         providers: [
-          Provider<FirebaseUserMapper>(create: (_) => FirebaseUserMapper())
+          Provider<FirebaseUserMapper>(create: (_) => FirebaseUserMapper()),
+          Provider<FirebaseChatMapper>(create: (_) => FirebaseChatMapper()),
         ],
         child: child,
       );
@@ -57,10 +63,17 @@ class DependencyInjector extends StatelessWidget {
           RepositoryProvider(
               create: (context) => AuthenticationRepository(
                   firebaseAuth: context.read(), googleSignIn: context.read())),
-          RepositoryProvider(
+          RepositoryProvider<UserRepository>(
             create: (context) => UserRepository(
               firebaseFirestore: context.read(),
               firebaseUserMapper: context.read(),
+            ),
+          ),
+          RepositoryProvider<ChatRepository>(
+            create: (context) => ChatRepository(
+              firebaseUserMapper: context.read(),
+              firebaseChatMapper: context.read(),
+              firebaseFirestore: context.read(),
             ),
           ),
         ],

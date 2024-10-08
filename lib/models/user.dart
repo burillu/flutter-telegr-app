@@ -24,4 +24,9 @@ class User extends Model {
         lastName,
         lastAccess,
       ];
+
+  String get displayName => "$firstName $lastName";
+
+  String get initials =>
+      "${firstName.substring(0, 1).toUpperCase()} ${lastName.substring(0, 1).toUpperCase()}";
 }

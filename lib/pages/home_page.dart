@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:telegram_app/cubits/auth/auth_cubit.dart';
+import 'package:telegram_app/cubits/chat/cubit/chat_cubit.dart';
 import 'package:telegram_app/cubits/scroll_cubit.dart';
 import 'package:telegram_app/extension/user_display_name_initials.dart';
+import 'package:telegram_app/pages/chat_error_page.dart';
 import 'package:telegram_app/widgets/chat_tile.dart';
 import 'package:telegram_app/widgets/connectivity_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:telegram_app/widgets/shimmed_list.dart';
 
 class HomePage extends ConnectivityWidget {
   final User user;
@@ -16,8 +19,16 @@ class HomePage extends ConnectivityWidget {
   const HomePage({super.key, required this.user});
 
   @override
-  Widget connectedBuild(_) => BlocProvider<ScrollCubit>(
-        create: (_) => ScrollCubit(),
+  Widget connectedBuild(BuildContext context) => MultiBlocProvider(
+        providers: [
+          BlocProvider<ScrollCubit>(
+            create: (_) => ScrollCubit(),
+          ),
+          BlocProvider<ChatCubit>(
+            create: (context) =>
+                ChatCubit(uid: user.uid, chatRepository: context.read()),
+          ),
+        ],
         child: LayoutBuilder(
           builder: (context, _) {
             return Scaffold(
@@ -109,10 +120,26 @@ class HomePage extends ConnectivityWidget {
         ],
       );
 
-  Widget _chatBody(BuildContext context) => NotificationListener(
+  Widget _chatBody(_) => BlocBuilder<ChatCubit, ChatState>(
+        builder: (context, state) {
+          if (state is FetchedChatState) {
+            return _chatContent(context, state: state);
+          } else if (state is NoChatState) {
+            return _chatEmpty(context);
+          } else if (state is ErrorChatState) {
+            return _chatError(context);
+          } else {
+            return _loading(context);
+          }
+        },
+      );
+
+  Widget _chatContent(BuildContext context,
+          {required FetchedChatState state}) =>
+      NotificationListener(
         child: ListView.builder(
-          itemCount: 7,
-          itemBuilder: (_, index) => ChatTile(),
+          itemCount: state.chats.length,
+          itemBuilder: (_, index) => ChatTile(chat: state.chats[index]),
         ),
         onNotification: (notification) {
           if (notification is ScrollStartNotification) {
@@ -122,6 +149,29 @@ class HomePage extends ConnectivityWidget {
           }
           return false;
         },
+      );
+
+  Widget _chatError(BuildContext context) => ChatErrorPage(
+        icon: Icon(
+          FontAwesomeIcons.eraser,
+          size: 128,
+          color: Colors.grey,
+        ),
+        title: AppLocalizations.of(context)?.title_error_chat ?? "",
+        subtitle: AppLocalizations.of(context)?.label_error_chat_sub ?? "",
+      );
+
+  Widget _chatEmpty(BuildContext context) => ChatErrorPage(
+        icon: Icon(
+          FontAwesomeIcons.file,
+          size: 128,
+          color: Colors.grey,
+        ),
+        title: AppLocalizations.of(context)?.title_empty_chat ?? "",
+        subtitle: AppLocalizations.of(context)?.label_empty_chat_sub ?? "",
+      );
+  Widget _loading(BuildContext context) => ShimmedList(
+        child: ChatTile.shimmed(),
       );
 
   Widget _fab(BuildContext context) =>

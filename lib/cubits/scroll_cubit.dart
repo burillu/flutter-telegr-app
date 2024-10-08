@@ -6,11 +6,4 @@ class ScrollCubit extends Cubit<bool> {
   void start() => emit(true);
 
   void end() => emit(false);
-
-  @override
-  Future<void> close() {
-    // TODO: implement close
-
-    return super.close();
-  }
 }

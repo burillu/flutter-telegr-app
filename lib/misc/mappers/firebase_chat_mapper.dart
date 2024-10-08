@@ -6,21 +6,22 @@ class FirebaseChatMapper extends FirebaseMapper<Chat> {
   Chat fromFirebase(Map<String, dynamic> map) {
     return Chat(
         lastMessage: map['last_message'],
+        // users: map['users'],
         createdAt: map['created_at'] != null
-            ? DateTime.fromMicrosecondsSinceEpoch(map['created_at'])
+            ? DateTime.fromMillisecondsSinceEpoch(map['created_at'])
             : null,
         updatedAt: map['updated_at'] != null
-            ? DateTime.fromMicrosecondsSinceEpoch(map['updated_at'])
+            ? DateTime.fromMillisecondsSinceEpoch(map['updated_at'])
             : null);
   }
 
   @override
-  Map<String, dynamic> toFirebase(Chat chat) {
+  Map<String, dynamic> toFirebase(Chat object) {
     return {
-      "last_message": chat.lastMessage,
-      "users": chat.user,
-      "created_at": chat.createdAt,
-      "updated_at": chat.updatedAt,
+      "last_message": object.lastMessage,
+      "users": object.user,
+      "created_at": object.createdAt,
+      "updated_at": object.updatedAt,
     };
   }
 }
