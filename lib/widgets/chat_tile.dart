@@ -36,7 +36,7 @@ class ChatTile extends StatelessWidget {
       Text(chat != null ? chat!.user?.displayName ?? "" : "");
 
   Widget _lastMessage(BuildContext context) =>
-      Text("${chat?.lastMessage.substring(0, 35)}...");
+      Text("${chat?.lastMessage.substring(0, 20)}...");
 
   Widget _time(BuildContext context) => Text(
         chat != null

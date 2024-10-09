@@ -53,8 +53,9 @@ class DependencyInjector extends StatelessWidget {
       );
   Widget _mappers({required Widget child}) => MultiProvider(
         providers: [
-          Provider<FirebaseUserMapper>(create: (_) => FirebaseUserMapper()),
-          Provider<FirebaseChatMapper>(create: (_) => FirebaseChatMapper()),
+          Provider<FirebaseMapper<model.User>>(
+              create: (_) => FirebaseUserMapper()),
+          Provider<FirebaseMapper<Chat>>(create: (_) => FirebaseChatMapper()),
         ],
         child: child,
       );

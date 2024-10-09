@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:telegram_app/misc/mappers/firebase_user_mapper.dart';
+import 'package:telegram_app/misc/mappers/firebase_mapper.dart';
+// import 'package:telegram_app/misc/mappers/firebase_user_mapper.dart';
 import 'package:telegram_app/models/user.dart';
 
 class UserRepository {
   final FirebaseFirestore firebaseFirestore;
-  final FirebaseUserMapper firebaseUserMapper;
+  final FirebaseMapper<User> firebaseUserMapper;
 
   UserRepository(
       {required this.firebaseFirestore, required this.firebaseUserMapper});
