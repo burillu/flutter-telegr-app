@@ -18,12 +18,10 @@ class ChatCubit extends Cubit<ChatState> {
     // print(uid);
     _streamSubscription = chatRepository.chats(uid).listen(
       (chats) {
-        print(chats);
         return emit(
             chats.isEmpty ? NoChatState() : FetchedChatState(chats: chats));
       },
       onError: (err) {
-        print(err);
         emit(
           ErrorChatState(),
         );

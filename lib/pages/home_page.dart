@@ -2,45 +2,118 @@ import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_essentials_kit/flutter_essentials_kit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:telegram_app/cubits/auth/auth_cubit.dart';
-import 'package:telegram_app/cubits/chat/cubit/chat_cubit.dart';
+import 'package:telegram_app/cubits/chat/chat_cubit.dart';
 import 'package:telegram_app/cubits/scroll_cubit.dart';
+import 'package:telegram_app/cubits/search_cubit.dart';
 import 'package:telegram_app/extension/user_display_name_initials.dart';
+import 'package:telegram_app/models/chat.dart';
 import 'package:telegram_app/pages/chat_error_page.dart';
 import 'package:telegram_app/widgets/chat_tile.dart';
-import 'package:telegram_app/widgets/connectivity_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:telegram_app/widgets/shimmed_list.dart';
 
-class HomePage extends ConnectivityWidget {
+class HomePage extends StatefulWidget {
   final User user;
 
   const HomePage({super.key, required this.user});
 
   @override
-  Widget connectedBuild(BuildContext context) => MultiBlocProvider(
-        providers: [
-          BlocProvider<ScrollCubit>(
-            create: (_) => ScrollCubit(),
-          ),
-          BlocProvider<ChatCubit>(
-            create: (context) =>
-                ChatCubit(uid: user.uid, chatRepository: context.read()),
-          ),
-        ],
-        child: LayoutBuilder(
-          builder: (context, _) {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text(AppLocalizations.of(context)?.app_name ?? ""),
-              ),
-              drawer: _drawer(context),
-              body: _body(context),
-            );
-          },
-        ),
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+  late AnimationController _animationController;
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 250),
+      reverseDuration: Duration(milliseconds: 250),
+    );
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) => MultiBlocProvider(
+          providers: [
+            BlocProvider<ScrollCubit>(
+              create: (_) => ScrollCubit(),
+            ),
+            BlocProvider<ChatCubit>(
+              create: (context) => ChatCubit(
+                  uid: widget.user.uid, chatRepository: context.read()),
+            ),
+            BlocProvider<SearchCubit>(
+              create: (_) => SearchCubit(),
+            ),
+          ],
+          child: LayoutBuilder(
+            builder: (context, __) => BlocBuilder<SearchCubit, bool>(
+              builder: (context, isSearching) {
+                return Scaffold(
+                  appBar: _appBar(context, isSearching: isSearching),
+                  drawer: _drawer(context),
+                  body: _body(context, isSearching: isSearching),
+                );
+              },
+            ),
+          ));
+
+  AppBar _appBar(BuildContext context, {bool isSearching = false}) => AppBar(
+        title: isSearching
+            ? _searchField(context)
+            : Text(AppLocalizations.of(context)?.app_name ?? ""),
+        leading: LayoutBuilder(builder: (context, _) {
+          return IconButton(
+            onPressed: () {
+              if (isSearching) {
+                context.read<SearchCubit>().toggle();
+                _animationController.reverse();
+              } else {
+                Scaffold.of(context).openDrawer();
+              }
+            },
+            icon: AnimatedIcon(
+              progress: _animationController,
+              icon: AnimatedIcons.menu_arrow,
+            ),
+          );
+        }),
+        actions: !isSearching
+            ? [
+                IconButton(
+                  onPressed: () {
+                    context.read<SearchCubit>().toggle();
+                    _animationController.forward();
+                  },
+                  icon: Icon(Icons.search),
+                ),
+              ]
+            : null,
       );
+  Widget _searchField(BuildContext context) => TwoWayBindingBuilder<String>(
+      binding: context.watch<SearchCubit>().searchBinding,
+      builder: (
+        context,
+        controller,
+        data,
+        onChanged,
+        error,
+      ) =>
+          TextField(
+            // cursorHeight: 20,
+            controller: controller,
+            onChanged: onChanged,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: AppLocalizations.of(context)?.label_search ?? "",
+                error: Text(error?.localizedString(context) ?? "")),
+          ));
 
   Widget _drawer(BuildContext context) => Drawer(
         child: Column(
@@ -64,14 +137,14 @@ class HomePage extends ConnectivityWidget {
         radius: 30,
         backgroundColor: Colors.grey.shade300,
         child: Text(
-          user.displayNameInitials,
+          widget.user.displayNameInitials,
           style: TextStyle(color: Colors.black54),
         ),
       ),
-      accountName: user.displayName != null
-          ? Text(user.displayName!)
+      accountName: widget.user.displayName != null
+          ? Text(widget.user.displayName!)
           : Text(AppLocalizations.of(context)?.label_user_name ?? ""),
-      accountEmail: Text(user.email!));
+      accountEmail: Text(widget.user.email!));
   Widget _logoutButton(BuildContext context) => ListTile(
         onTap: () => _shouldShowLogoutDialog(context),
         leading: Icon(Icons.logout),
@@ -113,17 +186,17 @@ class HomePage extends ConnectivityWidget {
     context.router.popUntilRoot();
   }
 
-  Widget _body(BuildContext context) => Stack(
+  Widget _body(BuildContext context, {bool isSearching = false}) => Stack(
         children: [
           _chatBody(context),
-          _fab(context),
+          _fab(context, isSearching: isSearching),
         ],
       );
 
   Widget _chatBody(_) => BlocBuilder<ChatCubit, ChatState>(
         builder: (context, state) {
           if (state is FetchedChatState) {
-            return _chatContent(context, state: state);
+            return _chatContent(context, chats: state.chats);
           } else if (state is NoChatState) {
             return _chatEmpty(context);
           } else if (state is ErrorChatState) {
@@ -134,26 +207,56 @@ class HomePage extends ConnectivityWidget {
         },
       );
 
-  Widget _chatContent(BuildContext context,
-          {required FetchedChatState state}) =>
-      NotificationListener(
-        child: ListView.builder(
-          itemCount: state.chats.length,
-          itemBuilder: (_, index) => ChatTile(chat: state.chats[index]),
+  Widget _chatContent(BuildContext context, {required List<Chat> chats}) =>
+      StreamBuilder<String?>(
+          stream: context.watch<SearchCubit>().searchBinding.stream,
+          builder: (context, snapshot) {
+            final List<Chat> filteredChats = chats
+                .where(
+                  (chat) =>
+                      !snapshot.hasData ||
+                      chat.user!.displayName
+                          .toLowerCase()
+                          .contains(snapshot.data!.toLowerCase()) ||
+                      chat.lastMessage.toLowerCase().contains(
+                            snapshot.data!.toLowerCase(),
+                          ),
+                )
+                .toList(growable: false);
+
+            if (filteredChats.isEmpty) {
+              return _searchChatEmpty(context);
+            }
+            return NotificationListener(
+              child: ListView.builder(
+                itemCount: filteredChats.length,
+                itemBuilder: (_, index) => ChatTile(chat: filteredChats[index]),
+              ),
+              onNotification: (notification) {
+                if (notification is ScrollStartNotification) {
+                  context.read<ScrollCubit>().start();
+                } else if (notification is ScrollEndNotification) {
+                  context.read<ScrollCubit>().end();
+                }
+                return false;
+              },
+            );
+          });
+
+  Widget _searchChatEmpty(BuildContext context) => ChatErrorPage(
+        icon: Icon(
+          Icons.chat,
+          size: 128,
+          color: Colors.grey,
         ),
-        onNotification: (notification) {
-          if (notification is ScrollStartNotification) {
-            context.read<ScrollCubit>().start();
-          } else if (notification is ScrollEndNotification) {
-            context.read<ScrollCubit>().end();
-          }
-          return false;
-        },
+        title: AppLocalizations.of(context)?.title_search_empty_chat ?? "",
+        subtitle:
+            AppLocalizations.of(context)?.label_search_empty_chat_sub ?? "",
       );
 
   Widget _chatError(BuildContext context) => ChatErrorPage(
         icon: Icon(
-          FontAwesomeIcons.eraser,
+          Icons.error,
           size: 128,
           color: Colors.grey,
         ),
@@ -174,16 +277,15 @@ class HomePage extends ConnectivityWidget {
         child: ChatTile.shimmed(),
       );
 
-  Widget _fab(BuildContext context) =>
-      BlocBuilder<ScrollCubit, bool>(builder: (context, isScrolling) {
-        return AnimatedPositioned(
-            duration: Duration(milliseconds: 250),
-            bottom: isScrolling ? -100 : 24,
-            right: 24,
-            child: FloatingActionButton(
-              shape: CircleBorder(),
-              onPressed: () {},
-              child: Icon(FontAwesomeIcons.edit),
-            ));
-      });
+  Widget _fab(BuildContext context, {bool isSearching = false}) =>
+      BlocBuilder<ScrollCubit, bool>(
+          builder: (context, isScrolling) => AnimatedPositioned(
+              duration: Duration(milliseconds: 250),
+              bottom: isScrolling || isSearching ? -100 : 24,
+              right: 24,
+              child: FloatingActionButton(
+                shape: CircleBorder(),
+                onPressed: () {},
+                child: Icon(FontAwesomeIcons.edit),
+              )));
 }

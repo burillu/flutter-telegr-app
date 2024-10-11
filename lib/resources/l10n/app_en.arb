@@ -23,9 +23,10 @@
     "label_google_sign_in" : "Sign in with Google",
     "label_or" :"or",
     "label_user_name": " User Name",
-    "label_empty_chat_sub": "There aren't message. Start now chatting!",
+    "label_empty_chat_sub": "There aren''t message. Start now chatting!",
     "label_error_chat_sub": "Error while loading messages. Sorry, try later",
-
+    "label_search" : "Search...",
+    "label_search_empty_chat_sub": "The search result with these characters is empty. Try removing some characters or make sure they are contained in the contact name or text message",
 
 
     "dialog_wrong_login_title" : "Login Error",
@@ -39,6 +40,7 @@
     "title_sign_up": "Sign Up",
     "title_empty_chat" : "Empty Chat",
     "title_error_chat" : "Errore con il caricamento della chat",
+    "title_search_empty_chat" : "No Result",
     
     "welcome_header1" : "Telegram",
     "welcome_header2" : "Fast",

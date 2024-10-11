@@ -26,6 +26,8 @@
     "label_user_name": "Nome Utente",
     "label_empty_chat_sub": "Non ci sono messaggi. Inizia subito a chattare!",
     "label_error_chat_sub": "Errore nel caricamento delle chat. Riprovare più tardi",
+    "label_search" : "Ricerca...",
+    "label_search_empty_chat_sub": "La ricerca con questa stringa non ha fornito alcun risultato. Prova a ridurre i caratteri o assicurati che quelli inseriti possano coincidere con una parte del nome o del messaggio",
 
 
     "dialog_wrong_login_title" : "Errore di login",
@@ -39,6 +41,7 @@
     "title_sign_up": "Registrati",
     "title_empty_chat" : "Chat Vuota!",
     "title_error_chat" : "Errore con il caricamento della chat",
+    "title_search_empty_chat" : "Nessun risultato",
     
     "welcome_header1" : "Telegram",
     "welcome_header2" : "Veloce",
@@ -48,7 +51,7 @@
     "welcome_header6" : "Basato in Cloud",
     "welcome_description1" : "Telegram e' l'app di messaggistica piu veloce al mondo e piu sicura!.",
     "welcome_description2" : "Telegram invia rapidamente i messaggi piu di ogni altra applicazione.",
-    "welcome_description3" : "Telegram e' gratuita, e lo rimarra' per sempre. Nessuna pubblicita'. Nessun costo aggiuntivo.",
+    "welcome_description3" : "Telegram è gratuita, e lo rimarra' per sempre. Nessuna pubblicita'. Nessun costo aggiuntivo.",
     "welcome_description4" : "Telegram non ha limiti di spazio di archiviazione per i tuoi media e le tue chat.",
     "welcome_description5" : "Telegram tiene i messaggi al sicuro da eventual attacchi hacker.",
     "welcome_description6" : "Telegram ti permette di accedere ai tuoi messaggi da multipli dispositivi."
