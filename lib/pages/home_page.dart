@@ -11,6 +11,7 @@ import 'package:telegram_app/cubits/search_cubit.dart';
 import 'package:telegram_app/extension/user_display_name_initials.dart';
 import 'package:telegram_app/models/chat.dart';
 import 'package:telegram_app/pages/chat_error_page.dart';
+import 'package:telegram_app/router/app_router.gr.dart';
 import 'package:telegram_app/widgets/chat_tile.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:telegram_app/widgets/shimmed_list.dart';
@@ -178,7 +179,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget _newMessageTile(BuildContext context) => ListTile(
         title: Text(AppLocalizations.of(context)?.action_new_message ?? ""),
         leading: Icon(FontAwesomeIcons.edit),
-        onTap: () {},
+        onTap: () {
+          context.router.push(NewMessageRoute(user: widget.user));
+        },
       );
 
   void _signOut(BuildContext context) {
@@ -285,7 +288,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               right: 24,
               child: FloatingActionButton(
                 shape: CircleBorder(),
-                onPressed: () {},
+                onPressed: () {
+                  context.router.push(NewMessageRoute(user: widget.user));
+                },
                 child: Icon(FontAwesomeIcons.edit),
               )));
 }
