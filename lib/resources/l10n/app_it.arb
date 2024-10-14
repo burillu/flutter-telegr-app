@@ -42,6 +42,7 @@
     "title_empty_chat" : "Chat Vuota!",
     "title_error_chat" : "Errore con il caricamento della chat",
     "title_search_empty_chat" : "Nessun risultato",
+    "title_new_message" : "Nuovo messaggio",
     
     "welcome_header1" : "Telegram",
     "welcome_header2" : "Veloce",
