@@ -16,4 +16,14 @@ class UserRepository {
         .doc(user.id)
         .set(firebaseUserMapper.toFirebase(user));
   }
+
+  Future<List<User>> search(String query) async => (await firebaseFirestore
+          .collection("users")
+          .where("last_name", isEqualTo: query)
+          .get())
+      .docs
+      .map((snapshot) => firebaseUserMapper
+          .fromFirebase(snapshot.data())
+          .copyWith(id: snapshot.id))
+      .toList(growable: false);
 }
