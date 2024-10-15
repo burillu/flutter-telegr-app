@@ -27,7 +27,9 @@
     "label_error_chat_sub": "Error while loading messages. Sorry, try later",
     "label_search" : "Search...",
     "label_search_empty_chat_sub": "The search result with these characters is empty. Try removing some characters or make sure they are contained in the contact name or text message",
-
+    "label_empty_friends_sub": "Try to add new friends and then start chatting with them.",
+    "label_error_friends_sub": "It seems that we have some problems in ours servers. Try again later.",
+    "label_last_access":"Last access: Time ago",
 
     "dialog_wrong_login_title" : "Login Error",
     "dialog_wrong_login_message" : "The input credentials are not valids",
@@ -42,6 +44,8 @@
     "title_error_chat" : "Errore con il caricamento della chat",
     "title_search_empty_chat" : "No Result",
     "title_new_message" : "New Message",
+    "title_empty_friends_list" : "Ops! It seems that you don t have any friend",
+    "title_error_friends_list" :  "Ops! There is a friend loading error",
     
     "welcome_header1" : "Telegram",
     "welcome_header2" : "Fast",

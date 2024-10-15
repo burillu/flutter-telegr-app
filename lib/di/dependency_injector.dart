@@ -8,13 +8,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:telegram_app/cubits/auth/auth_cubit.dart';
 import 'package:telegram_app/cubits/dark_mode_cubit.dart';
 import 'package:telegram_app/misc/mappers/firebase_chat_mapper.dart';
+import 'package:telegram_app/misc/mappers/firebase_friend_mapper.dart';
 import 'package:telegram_app/misc/mappers/firebase_mapper.dart';
 import 'package:telegram_app/misc/mappers/firebase_user_mapper.dart';
 import 'package:telegram_app/models/chat.dart';
+import 'package:telegram_app/models/friend.dart';
 import 'package:telegram_app/models/user.dart' as model;
 import 'package:telegram_app/providers/shared_preferences_providers.dart';
 import 'package:telegram_app/repositories/authentication_repository.dart';
 import 'package:telegram_app/repositories/chat_repository.dart';
+import 'package:telegram_app/repositories/friend_repository.dart';
 import 'package:telegram_app/repositories/user_repository.dart';
 
 class DependencyInjector extends StatelessWidget {
@@ -56,6 +59,8 @@ class DependencyInjector extends StatelessWidget {
           Provider<FirebaseMapper<model.User>>(
               create: (_) => FirebaseUserMapper()),
           Provider<FirebaseMapper<Chat>>(create: (_) => FirebaseChatMapper()),
+          Provider<FirebaseMapper<Friend>>(
+              create: (_) => FirebaseFriendMapper())
         ],
         child: child,
       );
@@ -77,6 +82,12 @@ class DependencyInjector extends StatelessWidget {
               firebaseFirestore: context.read(),
             ),
           ),
+          RepositoryProvider(
+              create: (context) => FriendRepository(
+                    firebaseFirestore: context.read(),
+                    friendMapper: context.read(),
+                    userMapper: context.read(),
+                  ))
         ],
         child: child,
       );

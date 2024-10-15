@@ -57,10 +57,11 @@ class NewMessageRoute extends _i5.PageRouteInfo<NewMessageRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<NewMessageRouteArgs>();
-      return _i2.NewMessagePage(
+      return _i5.WrappedRoute(
+          child: _i2.NewMessagePage(
         key: args.key,
         user: args.user,
-      );
+      ));
     },
   );
 }

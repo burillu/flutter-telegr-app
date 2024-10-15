@@ -28,7 +28,9 @@
     "label_error_chat_sub": "Errore nel caricamento delle chat. Riprovare più tardi",
     "label_search" : "Ricerca...",
     "label_search_empty_chat_sub": "La ricerca con questa stringa non ha fornito alcun risultato. Prova a ridurre i caratteri o assicurati che quelli inseriti possano coincidere con una parte del nome o del messaggio",
-
+    "label_empty_friends_sub": "Prova ad aggiungere nuovi amici per iniziare a chattare con loro",
+    "label_error_friends_sub": "Al momento è presente un errore nei nostri sistemi. Riprova più tardi.",
+    "label_last_access":"Ultimo accesso : qualche tempo fa",
 
     "dialog_wrong_login_title" : "Errore di login",
     "dialog_wrong_login_message" : "Le credenziali inserite non sono corrette",
@@ -43,6 +45,8 @@
     "title_error_chat" : "Errore con il caricamento della chat",
     "title_search_empty_chat" : "Nessun risultato",
     "title_new_message" : "Nuovo messaggio",
+    "title_empty_friends_list" : "Ops! Sembra che non hai ancora amici",
+    "title_error_friends_list" :  "Ops! Errore nel caricamento degli amici",
     
     "welcome_header1" : "Telegram",
     "welcome_header2" : "Veloce",

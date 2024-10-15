@@ -5,7 +5,6 @@ class FirebaseFriendMapper extends FirebaseMapper<Friend> {
   @override
   Friend fromFirebase(Map<String, dynamic> map) => Friend(
         allowed: map['allowed'],
-        user: map['friend'],
         createdAt: map['createdAt'] != null
             ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'])
             : null,

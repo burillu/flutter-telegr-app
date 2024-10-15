@@ -29,4 +29,5 @@ class User extends Model {
 
   String get initials =>
       "${firstName.substring(0, 1).toUpperCase()} ${lastName.substring(0, 1).toUpperCase()}";
+  String get firstLetter => firstName.substring(0, 1);
 }
