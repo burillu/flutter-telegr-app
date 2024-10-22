@@ -234,7 +234,11 @@ class _HomePageState extends State<HomePage>
             return NotificationListener(
               child: ListView.builder(
                 itemCount: filteredChats.length,
-                itemBuilder: (_, index) => ChatTile(chat: filteredChats[index]),
+                itemBuilder: (_, index) => ChatTile(
+                  chat: filteredChats[index],
+                  onTap: () => context.router.push(ChatRoute(
+                      user: widget.user, other: filteredChats[index].user!)),
+                ),
               ),
               onNotification: (notification) {
                 if (notification is ScrollStartNotification) {

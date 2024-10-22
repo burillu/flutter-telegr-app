@@ -13,6 +13,7 @@ import 'package:telegram_app/mixin/search_components_mixin.dart';
 import 'package:telegram_app/models/friend.dart';
 import 'package:telegram_app/models/user.dart' as models;
 import 'package:telegram_app/pages/chat_error_page.dart';
+import 'package:telegram_app/router/app_router.gr.dart';
 import 'package:telegram_app/widgets/connectivity_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:telegram_app/widgets/contact_tile.dart';
@@ -141,6 +142,8 @@ class NewMessagePage extends ConnectivityWidget
           {required List<models.User> users}) =>
       ListView.builder(
         itemBuilder: (_, index) => ContactTile(
+          onTap: () => context.router
+              .popAndPush(ChatRoute(user: user, other: users[index])),
           user: users[index],
         ),
         itemCount: users.length,
@@ -194,8 +197,11 @@ class NewMessagePage extends ConnectivityWidget
                   padding: EdgeInsets.only(left: 60),
                   sliver: SliverList(
                     delegate: SliverChildBuilderDelegate(
-                        (context, index) =>
-                            ContactTile(user: friends[index].user),
+                        (context, index) => ContactTile(
+                              user: friends[index].user,
+                              onTap: () => context.router.popAndPush(ChatRoute(
+                                  user: user, other: friends[index].user!)),
+                            ),
                         childCount: friends.length),
                   ),
                 )))

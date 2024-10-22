@@ -8,9 +8,15 @@ class ChatTile extends StatelessWidget {
   final String? dateTime;
   final String? urlImageProfile;
   final Chat? chat;
+  final VoidCallback? onTap;
 
   const ChatTile(
-      {super.key, this.name, this.dateTime, this.urlImageProfile, this.chat});
+      {super.key,
+      this.name,
+      this.dateTime,
+      this.urlImageProfile,
+      this.chat,
+      this.onTap});
 
   factory ChatTile.shimmed() => ChatTile(chat: null);
 
@@ -20,6 +26,7 @@ class ChatTile extends StatelessWidget {
         leading: _avatar(context),
         subtitle: _lastMessage(context),
         trailing: _time(context),
+        onTap: onTap,
       );
 
   Widget _avatar(BuildContext context) => CircleAvatar(

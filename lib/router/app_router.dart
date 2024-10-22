@@ -19,5 +19,6 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: SignInRoute.page, initial: false),
         AutoRoute(page: SignUpRoute.page),
         AutoRoute(page: NewMessageRoute.page),
+        AutoRoute(page: ChatRoute.page)
       ];
 }
