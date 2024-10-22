@@ -31,6 +31,8 @@
     "label_empty_friends_sub": "Prova ad aggiungere nuovi amici per iniziare a chattare con loro",
     "label_error_friends_sub": "Al momento è presente un errore nei nostri sistemi. Riprova più tardi.",
     "label_last_access":"Ultimo accesso : qualche tempo fa",
+    "label_empty_user_search_sub" : "La ricerca non ha fornito alcun risultato. Assicurati di aver inserito i caratteri voluti o provare a cambiare la stringa di ricerca",
+"label_error_user_search_sub" : "Si è presentato un errore durante la ricerca degli utenti. Riprova più tardi grazie",
 
     "dialog_wrong_login_title" : "Errore di login",
     "dialog_wrong_login_message" : "Le credenziali inserite non sono corrette",
@@ -47,6 +49,9 @@
     "title_new_message" : "Nuovo messaggio",
     "title_empty_friends_list" : "Ops! Sembra che non hai ancora amici",
     "title_error_friends_list" :  "Ops! Errore nel caricamento degli amici",
+    "title_empty_user_search" : "Ops! Nessun utente trovato",
+    "title_error_user_search" : "Ops! Errore nella ricerca dei contatti",
+
     
     "welcome_header1" : "Telegram",
     "welcome_header2" : "Veloce",

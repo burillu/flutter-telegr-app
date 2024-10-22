@@ -19,7 +19,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   Timer? _debounce;
 
-  UserBloc(this.userRepository, this.searchCubit) : super(InitialUserState()) {
+  UserBloc({required this.userRepository, required this.searchCubit})
+      : super(InitialUserState()) {
     _searchStreamSub = searchCubit.searchBinding.stream
         .where((query) => query != null)
         .listen((query) {
@@ -27,6 +28,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       _debounce =
           Timer(Duration(milliseconds: 250), () => _searchUsers(query: query!));
     });
+    _toggleStreamSub =
+        searchCubit.stream.where((enable) => !enable).listen((_) => _reset());
+
     on<SearchUserEvent>((event, emit) async {
       emit(SearchingUserState());
 

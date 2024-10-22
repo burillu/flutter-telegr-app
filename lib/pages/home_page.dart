@@ -2,13 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_essentials_kit/flutter_essentials_kit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:telegram_app/cubits/auth/auth_cubit.dart';
 import 'package:telegram_app/cubits/chat/chat_cubit.dart';
 import 'package:telegram_app/cubits/scroll_cubit.dart';
 import 'package:telegram_app/cubits/search_cubit.dart';
 import 'package:telegram_app/extension/user_display_name_initials.dart';
+import 'package:telegram_app/mixin/search_components_mixin.dart';
 import 'package:telegram_app/models/chat.dart';
 import 'package:telegram_app/pages/chat_error_page.dart';
 import 'package:telegram_app/router/app_router.gr.dart';
@@ -25,7 +25,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class _HomePageState extends State<HomePage>
+    with TickerProviderStateMixin, SearchComponentsMixin {
   late AnimationController _animationController;
 
   @override
@@ -66,7 +67,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   AppBar _appBar(BuildContext context, {bool isSearching = false}) => AppBar(
         title: isSearching
-            ? _searchField(context)
+            ? searchField(context)
             : Text(AppLocalizations.of(context)?.app_name ?? ""),
         leading: LayoutBuilder(builder: (context, _) {
           return IconButton(
@@ -96,25 +97,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ]
             : null,
       );
-  Widget _searchField(BuildContext context) => TwoWayBindingBuilder<String>(
-      binding: context.watch<SearchCubit>().searchBinding,
-      builder: (
-        context,
-        controller,
-        data,
-        onChanged,
-        error,
-      ) =>
-          TextField(
-            // cursorHeight: 20,
-            controller: controller,
-            onChanged: onChanged,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: AppLocalizations.of(context)?.label_search ?? "",
-                error: Text(error?.localizedString(context) ?? "")),
-          ));
+  // Widget _searchField(BuildContext context) => TwoWayBindingBuilder<String>(
+  //     binding: context.watch<SearchCubit>().searchBinding,
+  //     builder: (
+  //       context,
+  //       controller,
+  //       data,
+  //       onChanged,
+  //       error,
+  //     ) =>
+  //         TextField(
+  //           // cursorHeight: 20,
+  //           controller: controller,
+  //           onChanged: onChanged,
+  //           keyboardType: TextInputType.text,
+  //           decoration: InputDecoration(
+  //               border: InputBorder.none,
+  //               hintText: AppLocalizations.of(context)?.label_search ?? "",
+  //               error: Text(error?.localizedString(context) ?? "")),
+  //         ));
 
   Widget _drawer(BuildContext context) => Drawer(
         child: Column(

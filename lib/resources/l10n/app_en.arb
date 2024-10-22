@@ -30,6 +30,9 @@
     "label_empty_friends_sub": "Try to add new friends and then start chatting with them.",
     "label_error_friends_sub": "It seems that we have some problems in ours servers. Try again later.",
     "label_last_access":"Last access: Time ago",
+    "label_empty_user_search_sub" : "No result for this search. Be sure to have insert right characters , or try again with another search string",
+    "label_error_user_search_sub" : "An error occured while searching users. Please try again later",
+
 
     "dialog_wrong_login_title" : "Login Error",
     "dialog_wrong_login_message" : "The input credentials are not valids",
@@ -46,6 +49,9 @@
     "title_new_message" : "New Message",
     "title_empty_friends_list" : "Ops! It seems that you don t have any friend",
     "title_error_friends_list" :  "Ops! There is a friend loading error",
+    "title_empty_user_search" : "Ops! No users found",
+    "title_error_user_search" : "Ops! An Error occured searching users.",
+
     
     "welcome_header1" : "Telegram",
     "welcome_header2" : "Fast",
