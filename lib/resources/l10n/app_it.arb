@@ -32,7 +32,8 @@
     "label_error_friends_sub": "Al momento è presente un errore nei nostri sistemi. Riprova più tardi.",
     "label_last_access":"Ultimo accesso : qualche tempo fa",
     "label_empty_user_search_sub" : "La ricerca non ha fornito alcun risultato. Assicurati di aver inserito i caratteri voluti o provare a cambiare la stringa di ricerca",
-"label_error_user_search_sub" : "Si è presentato un errore durante la ricerca degli utenti. Riprova più tardi grazie",
+    "label_error_user_search_sub" : "Si è presentato un errore durante la ricerca degli utenti. Riprova più tardi grazie",
+    "label_message" : "Messaggio...",
 
     "dialog_wrong_login_title" : "Errore di login",
     "dialog_wrong_login_message" : "Le credenziali inserite non sono corrette",

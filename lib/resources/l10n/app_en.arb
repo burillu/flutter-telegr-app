@@ -32,7 +32,7 @@
     "label_last_access":"Last access: Time ago",
     "label_empty_user_search_sub" : "No result for this search. Be sure to have insert right characters , or try again with another search string",
     "label_error_user_search_sub" : "An error occured while searching users. Please try again later",
-
+    "label_message" : "Message...",
 
     "dialog_wrong_login_title" : "Login Error",
     "dialog_wrong_login_message" : "The input credentials are not valids",

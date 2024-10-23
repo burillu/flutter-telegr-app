@@ -40,9 +40,53 @@ class ChatPage extends ConnectivityWidget {
         ),
         body: Column(
           children: [
-            Center(
-              child: Text("Chat Page"),
+            _messageBody(context),
+            _footer(context),
+          ],
+        ),
+      );
+
+  Widget _messageBody(BuildContext context) => Expanded(
+        child: Container(
+          width: double.maxFinite,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage("assets/images/qwd83nc4xxf41.jpeg"),
+          )),
+          child: Text("Chat Page"),
+        ),
+      );
+
+  Widget _footer(BuildContext context) => Card(
+        shape: Border(),
+        margin: EdgeInsets.zero,
+        child: Row(
+          children: [
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.emoji_emotions_outlined,
+                  color: Colors.grey,
+                )),
+            Expanded(
+              child: TextField(
+                minLines: 1,
+                maxLines: 6,
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText:
+                        AppLocalizations.of(context)?.label_message ?? ""),
+              ),
             ),
+            IconButton(onPressed: () {}, icon: Icon(Icons.attach_file)),
+            IconButton(onPressed: () {}, icon: Icon(Icons.mic)),
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.send,
+                  color: Colors.blue,
+                ))
           ],
         ),
       );
