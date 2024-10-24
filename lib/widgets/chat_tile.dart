@@ -49,7 +49,7 @@ class ChatTile extends StatelessWidget {
         chat != null
             ? timeago.format(
                 locale: AppLocalizations.of(context)?.localeName,
-                chat!.updatedAt ?? chat!.createdAt)
+                chat!.user?.lastAccess ?? chat!.createdAt)
             : "",
       );
 }

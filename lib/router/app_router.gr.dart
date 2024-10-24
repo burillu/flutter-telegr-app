@@ -42,11 +42,12 @@ class ChatRoute extends _i6.PageRouteInfo<ChatRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<ChatRouteArgs>();
-      return _i1.ChatPage(
+      return _i6.WrappedRoute(
+          child: _i1.ChatPage(
         key: args.key,
         user: args.user,
         other: args.other,
-      );
+      ));
     },
   );
 }

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:telegram_app/misc/mappers/firebase_mapper.dart';
-// import 'package:telegram_app/misc/mappers/firebase_user_mapper.dart';
 import 'package:telegram_app/models/user.dart';
 
 class UserRepository {
@@ -16,6 +15,14 @@ class UserRepository {
         .doc(user.id)
         .set(firebaseUserMapper.toFirebase(user));
   }
+
+  Stream<User> user(String uid) => firebaseFirestore
+      .collection("users")
+      .doc(uid)
+      .snapshots()
+      .where((snapshot) => snapshot.exists)
+      .asyncMap((userStream) =>
+          firebaseUserMapper.fromFirebase(userStream.data() ?? {}));
 
   Future<List<User>> search(String query) async => (await firebaseFirestore
           .collection("users")
