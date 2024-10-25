@@ -34,6 +34,29 @@
     "label_error_user_search_sub" : "An error occured while searching users. Please try again later",
     "label_message" : "Message...",
     "label_error_status_feed" : "Ops! There is an error while loading user status. Try again later",
+    "label_no_frienship_content" : " {me}, you aren't {user}'s friend. You colud won't receive any answer at yours messages",
+    "@label_no_frienship_content": {
+        "placeholders": {
+            "user" : {
+                "type": "String"
+            },
+            "me" : {
+                "type": "String"
+            }
+        }
+    },
+    "label_empty_chat_friend":"No messages available",
+    "label_say_hi_to" : "{me}, start chatting now with {user} !",
+    "@label_say_hi_to" :{
+        "placeholders": {
+            "user" :{
+                "type": "String"
+            },
+            "me" :{
+                "type": "String"
+            }
+        }
+    },
 
     "dialog_wrong_login_title" : "Login Error",
     "dialog_wrong_login_message" : "The input credentials are not valids",

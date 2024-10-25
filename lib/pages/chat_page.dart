@@ -2,7 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:telegram_app/blocs/friend_status/friend_status_bloc.dart';
 import 'package:telegram_app/cubits/user_status/user_status_cubit.dart';
+import 'package:telegram_app/extension/user_first_last_name.dart';
+import 'package:telegram_app/models/chat.dart';
 import 'package:telegram_app/models/user.dart' as models;
 import 'package:telegram_app/widgets/connectivity_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -19,7 +23,11 @@ class ChatPage extends ConnectivityWidget implements AutoRouteWrapper {
   Widget wrappedRoute(BuildContext context) => MultiBlocProvider(providers: [
         BlocProvider<UserStatusCubit>(
             create: (context) =>
-                UserStatusCubit(userRepository: context.read(), user: other))
+                UserStatusCubit(userRepository: context.read(), user: other)),
+        BlocProvider<FriendStatusBloc>(
+            create: (context) =>
+                FriendStatusBloc(friendRepository: context.read())
+                  ..fetchStatus(me: user.uid, user: other.id!)),
       ], child: this);
 
   @override
@@ -73,7 +81,71 @@ class ChatPage extends ConnectivityWidget implements AutoRouteWrapper {
             fit: BoxFit.cover,
             image: AssetImage("assets/images/qwd83nc4xxf41.jpeg"),
           )),
-          child: Text("Chat Page"),
+          child: BlocBuilder<FriendStatusBloc, FriendStatusState>(
+            builder: (context, state) {
+              final isFriend = state is FetchedFriendStatus && state.isFriend;
+              List<Chat> chats = [];
+
+              return Stack(
+                children: [
+                  if (state is FetchedFriendStatus && !state.isFriend)
+                    _noFriendshipContent(context),
+                  if (isFriend && chats.isEmpty) _emptyChat(context),
+                ],
+              );
+            },
+          ),
+        ),
+      );
+
+  Widget _noFriendshipContent(BuildContext context) => Positioned(
+        bottom: 16,
+        left: 16,
+        right: 16,
+        child: Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey[400]!),
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(16)),
+          padding: const EdgeInsets.all(32.0),
+          child: Text(AppLocalizations.of(context)?.label_no_frienship_content(
+                  other.displayName, user.firstName) ??
+              ""),
+        ),
+      );
+
+  Widget _emptyChat(BuildContext context) => Positioned(
+        bottom: 16,
+        left: 16,
+        right: 16,
+        child: Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey[400]!),
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(16)),
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Text(AppLocalizations.of(context)?.label_empty_chat_friend ?? ""),
+              MaterialButton(
+                onPressed: () {},
+                child: Row(
+                  children: [
+                    FaIcon(
+                      FontAwesomeIcons.solidHandSpock,
+                      color: Colors.yellow,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(AppLocalizations.of(context)?.label_say_hi_to(
+                            other.displayName, user.firstName) ??
+                        ""),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       );
 

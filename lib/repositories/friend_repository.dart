@@ -31,4 +31,24 @@ class FriendRepository {
             .copyWith(id: friend.id)
             .copyWith(user: user);
       });
+
+  Future<bool> isFriend({required String me, required String user}) async {
+    final result = await firebaseFirestore
+        .collection("friends")
+        .where("user", isEqualTo: me)
+        .where("friend",
+            isEqualTo: firebaseFirestore.collection("users").doc(user))
+        .get();
+    return result.size > 0;
+  }
+
+  void create({required String me, required String other}) async {
+    final user = firebaseFirestore.collection("users").doc(other);
+    final friend = {
+      "allowed": true,
+      "user": me,
+      "friend": user,
+    };
+    await firebaseFirestore.collection("friends").add(friend);
+  }
 }

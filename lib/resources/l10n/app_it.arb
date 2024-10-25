@@ -35,6 +35,29 @@
     "label_error_user_search_sub" : "Si è presentato un errore durante la ricerca degli utenti. Riprova più tardi grazie",
     "label_message" : "Messaggio...",
     "label_error_status_feed" : "Errore nel caricamento dello status dell utente. Riprovare più tardi ",
+    "label_no_frienship_content" : " {me}, non sei amico di {user}. Potresti non ricevere alcuna risposta ai messaggi che invierai",
+    "@label_no_frienship_content": {
+        "placeholders": {
+            "user" : {
+                "type": "String"
+            },
+            "me" : {
+                "type": "String"
+            }
+        }
+    },
+    "label_empty_chat_friend":"Non ci sono messaggi disponibili",
+    "label_say_hi_to" : "{me}, Inizia a chattare con {user} !",
+    "@label_say_hi_to" :{
+        "placeholders": {
+            "user" :{
+                "type": "String"
+            },
+            "me" :{
+                "type": "String"
+            }
+        }
+    },
 
     "dialog_wrong_login_title" : "Errore di login",
     "dialog_wrong_login_message" : "Le credenziali inserite non sono corrette",
