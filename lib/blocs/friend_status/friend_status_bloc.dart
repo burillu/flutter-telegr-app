@@ -43,4 +43,7 @@ class FriendStatusBloc extends Bloc<FriendStatusEvent, FriendStatusState> {
 
   void createFriendship({required String me, required String other}) =>
       add(CreateFriendshipEvent(me: me, other: other));
+
+  bool get friends =>
+      state is FetchedFriendStatus && (state as FetchedFriendStatus).isFriend;
 }

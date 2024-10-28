@@ -120,4 +120,11 @@ class ChatRepository {
       return chat.copyWith(user: user, id: snapshot.id);
     });
   }
+
+  Future<void> update({required String chat, String? message}) {
+    return firebaseFirestore.collection("chats").doc(chat).update({
+      "last_message": message,
+      "updated_at": DateTime.now().millisecondsSinceEpoch,
+    });
+  }
 }
