@@ -45,4 +45,79 @@ class ChatRepository {
           );
         },
       );
+
+  Future<Chat> create({
+    required String me,
+    required String other,
+    required String message,
+  }) async {
+    final users = [me, other]..sort();
+
+    final List<DocumentReference> references =
+        users.map<DocumentReference>((uid) {
+      final userRef = firebaseFirestore.collection("users").doc(uid);
+      return userRef;
+    }).toList(growable: false);
+
+    final insert = (await firebaseFirestore.collection("chats").add({
+      "last_message": message,
+      "created_at": DateTime.now().millisecondsSinceEpoch,
+      "users": references,
+      "update_at": null
+    }));
+
+    final chatMapped = await insert.get();
+    final chat = firebaseChatMapper.fromFirebase(chatMapped.data() ?? {});
+
+    final userReference =
+        ((chatMapped.data() ?? {"users": []})["users"] as List)
+            .firstWhere((ref) => ref.id != me, orElse: () => null);
+
+    if (userReference == null) {
+      throw ChatRepositoryException();
+    }
+
+    final userMapped = userReference.get();
+    final user = firebaseUserMapper
+        .fromFirebase(userMapped.data ?? {})
+        .copyWith(id: userReference.id);
+    return chat.copyWith(user: user, id: chatMapped.id);
+  }
+
+  Future<List<Chat>> find({
+    required String me,
+    required String other,
+  }) async {
+    final users = [me, other]..sort();
+
+    final List<DocumentReference> references =
+        users.map<DocumentReference>((uid) {
+      final userRef = firebaseFirestore.collection("users").doc(uid);
+      return userRef;
+    }).toList(growable: false);
+
+    final chatRef = await firebaseFirestore
+        .collection("chats")
+        .where("users", isEqualTo: references)
+        .get();
+
+    return chatRef.docs.futureMap<Chat>((snapshot) async {
+      final chat = firebaseChatMapper.fromFirebase(snapshot.data());
+
+      final userReference =
+          (snapshot.data()['users'] as List).firstWhere((user) {
+        return user.id != me;
+      }, orElse: () => null);
+      if (userReference == null) {
+        throw ChatRepositoryException();
+      }
+
+      final userSnapshot = await userReference.get();
+      final user = firebaseUserMapper
+          .fromFirebase(userSnapshot.data())
+          .copyWith(id: userSnapshot.id);
+
+      return chat.copyWith(user: user, id: snapshot.id);
+    });
+  }
 }
